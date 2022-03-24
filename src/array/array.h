@@ -24,8 +24,20 @@ struct array *array_new(unsigned int capacity);
 /* Free all memory used by an array */
 void array_free(struct array *arr);
 
+/* Update an array's capacity */
+void array_resize(struct array *arr);
+
+/* Double the capacity of an array */
+void array_upsize(struct array *arr);
+
+/* Half the capacity of an array */
+void array_downsize(struct array *arr);
+
 /* Get the number of items in an array */
 unsigned int array_size(struct array *arr);
 
 /* Get the number of items an array can hold */
 unsigned int array_capacity(struct array *arr);
+
+/* Add a new item to the end of the array */
+void array_push(struct array *arr, int value);

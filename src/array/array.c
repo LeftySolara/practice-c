@@ -57,6 +57,50 @@ void array_free(struct array *arr)
 }
 
 /**
+ * @brief Update the capacity of an array
+ *
+ * This function will double the capacity of an array
+ * if it is full, and cut it in half when it is not.
+ *
+ * @param arr The array to resize
+ */
+void array_resize(struct array *arr)
+{
+    if (arr->size == arr->capacity) {
+        array_upsize(arr);
+    }
+    else {
+        array_downsize(arr);
+    }
+}
+
+/**
+ * @brief Double the capacity of an array
+ *
+ * @param arr The array to upsize
+ */
+void array_upsize(struct array *arr)
+{
+    arr->capacity *= 2;
+    arr->data = realloc(arr->data, sizeof(int) * arr->capacity);
+}
+
+/**
+ * @brief Cut the capacity of an array in half
+ *
+ * @param arr The array to reduce capacity for
+ */
+void array_downsize(struct array *arr)
+{
+    if (arr->capacity <= 1) {
+        return;
+    }
+
+    arr->capacity /= 2;
+    arr->data = realloc(arr->data, sizeof(int) * arr->capacity);
+}
+
+/**
  * @brief Get the number of items in an array
  *
  * @param arr The array to check
