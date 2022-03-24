@@ -96,6 +96,21 @@ void test_array_insert(void)
     array_free(arr);
 }
 
+void test_array_prepend(void)
+{
+    struct array *arr = array_new(8);
+
+    array_push(arr, 4);
+    array_push(arr, 9);
+    array_prepend(arr, 19);
+
+    TEST_ASSERT_EQUAL(19, array_at(arr, 0));
+    TEST_ASSERT_EQUAL(4, array_at(arr, 1));
+    TEST_ASSERT_EQUAL(9, array_at(arr, 2));
+
+    array_free(arr);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -106,5 +121,6 @@ int main(void)
     RUN_TEST(test_array_at);
     RUN_TEST(test_array_push);
     RUN_TEST(test_array_insert);
+    RUN_TEST(test_array_prepend);
     return UNITY_END();
 }

@@ -190,3 +190,14 @@ void array_insert(struct array *arr, int value, unsigned int index)
     *(arr->data + index) = value;
     ++arr->size;
 }
+
+/**
+ * @brief Add an item to the beginning of an array
+ *
+ * @param arr The array to add an item to
+ * @param value The item to add to the array
+ */
+void array_prepend(struct array *arr, int value)
+{
+    array_insert(arr, value, 0);
+}

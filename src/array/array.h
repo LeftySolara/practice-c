@@ -50,3 +50,6 @@ void array_push(struct array *arr, int value);
 
 /* Add an item to an array at the given index */
 void array_insert(struct array *arr, int value, unsigned int index);
+
+/* Add an item to the beginning of an array */
+void array_prepend(struct array *arr, int value);
