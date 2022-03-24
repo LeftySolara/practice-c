@@ -121,3 +121,18 @@ unsigned int array_capacity(struct array *arr)
 {
     return arr->capacity;
 }
+
+/**
+ * @brief Add an item to the end of an array
+ *
+ * @param arr The array to add an item to
+ * @param value The item to add to the array
+ */
+void array_push(struct array *arr, int value)
+{
+    if (arr->size == arr->capacity) {
+        array_upsize(arr);
+    }
+
+    *(arr->data + arr->size++) = value;
+}

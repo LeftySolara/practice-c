@@ -37,11 +37,23 @@ void test_array_resize(void)
     array_free(arr);
 }
 
+void test_array_push(void)
+{
+    struct array *arr = array_new(8);
+
+    array_push(arr, 7);
+    array_push(arr, 2);
+
+    TEST_ASSERT_EQUAL(2, array_size(arr));
+    TEST_ASSERT_EQUAL(8, array_capacity(arr));
+}
+
 int main(void)
 {
     UNITY_BEGIN();
     RUN_TEST(test_array_size);
     RUN_TEST(test_array_capacity);
     RUN_TEST(test_array_resize);
+    RUN_TEST(test_array_push);
     return UNITY_END();
 }
