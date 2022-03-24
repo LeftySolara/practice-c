@@ -1,3 +1,5 @@
+#include <linux/limits.h>
+
 #include "../src/array/array.h"
 #include "../unity/src/unity.h"
 
@@ -111,6 +113,52 @@ void test_array_prepend(void)
     array_free(arr);
 }
 
+void test_array_pop(void)
+{
+    struct array *arr = array_new(8);
+
+    array_push(arr, 4);
+    array_push(arr, 9);
+    array_push(arr, 19);
+
+    TEST_ASSERT_EQUAL(19, array_pop(arr));
+    TEST_ASSERT_EQUAL(9, array_pop(arr));
+    TEST_ASSERT_EQUAL(4, array_pop(arr));
+
+    array_free(arr);
+}
+
+void test_array_delete(void)
+{
+    struct array *arr = array_new(8);
+
+    array_push(arr, 4);
+    array_push(arr, 9);
+    array_push(arr, 19);
+
+    array_delete(arr, 1);
+
+    TEST_ASSERT_EQUAL(19, array_at(arr, 1));
+
+    array_free(arr);
+}
+
+void test_array_remove(void)
+{
+    struct array *arr = array_new(8);
+
+    array_push(arr, 4);
+    array_push(arr, 9);
+    array_push(arr, 19);
+
+    array_remove(arr, 9);
+
+    TEST_ASSERT_EQUAL(4, array_at(arr, 0));
+    TEST_ASSERT_EQUAL(19, array_at(arr, 1));
+
+    array_free(arr);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -122,5 +170,8 @@ int main(void)
     RUN_TEST(test_array_push);
     RUN_TEST(test_array_insert);
     RUN_TEST(test_array_prepend);
+    RUN_TEST(test_array_pop);
+    RUN_TEST(test_array_delete);
+    RUN_TEST(test_array_remove);
     return UNITY_END();
 }

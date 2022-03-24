@@ -201,3 +201,71 @@ void array_prepend(struct array *arr, int value)
 {
     array_insert(arr, value, 0);
 }
+
+/**
+ * @brief Remove the last element of an array and return it
+ *
+ * @param arr The array to remove an item from
+ */
+int array_pop(struct array *arr)
+{
+    if (arr->size <= 0) {
+        exit(EXIT_FAILURE);
+    }
+
+    int value = *(arr->data + arr->size - 1);
+    arr->size--;
+
+    return value;
+}
+
+/**
+ * @brief Remove an item from an array at a given index
+ *
+ * @param arr The array to remove an item from
+ * @param index The index to remove an item from
+ */
+void array_delete(struct array *arr, unsigned int index)
+{
+    if (index < 0 || index > arr->size) {
+        exit(EXIT_FAILURE);
+    }
+
+    for (int i = index; i < arr->size; ++i) {
+        *(arr->data + i) = *(arr->data + i + 1);
+    }
+    --arr->size;
+}
+
+/**
+ * @brief Remove an item from an array based on its value
+ *
+ * @param arr The array to remove an item from
+ * @param value The item to remove
+ */
+void array_remove(struct array *arr, int value)
+{
+    int index;
+    while ((index = array_find(arr, value)) != -1) {
+        array_delete(arr, index);
+    }
+}
+
+/**
+ * @brief Find the index of an item in an array
+ *
+ * @param arr The array to search
+ * @param value The item to find
+ */
+unsigned int array_find(struct array *arr, int value)
+{
+    int found = -1;
+    for (int i = 0; i < arr->size; ++i) {
+        if (array_at(arr, i) == value) {
+            found = i;
+            break;
+        }
+    }
+
+    return found;
+}

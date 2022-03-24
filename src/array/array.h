@@ -53,3 +53,15 @@ void array_insert(struct array *arr, int value, unsigned int index);
 
 /* Add an item to the beginning of an array */
 void array_prepend(struct array *arr, int value);
+
+/* Remove the last element in an array and return it */
+int array_pop(struct array *arr);
+
+/* Remove an item from an array at a given index */
+void array_delete(struct array *arr, unsigned int index);
+
+/* Remove an item from an array based on its value */
+void array_remove(struct array *arr, int value);
+
+/* Find an item in an array */
+unsigned int array_find(struct array *arr, int value);
