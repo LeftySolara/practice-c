@@ -26,3 +26,6 @@ void array_free(struct array *arr);
 
 /* Get the number of items in an array */
 unsigned int array_size(struct array *arr);
+
+/* Get the number of items an array can hold */
+unsigned int array_capacity(struct array *arr);

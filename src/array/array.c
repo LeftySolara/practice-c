@@ -9,9 +9,9 @@
  *
  */
 
-#include <stdlib.h>
-
 #include "array.h"
+
+#include <stdlib.h>
 
 /**
  * @brief Create a new, empty array with the given capacity
@@ -65,4 +65,15 @@ void array_free(struct array *arr)
 unsigned int array_size(struct array *arr)
 {
     return arr->size;
+}
+
+/**
+ * @brief Get the number of items an array can hold
+ *
+ * @param arr The array to check
+ * @return unsigned int The number of items the array can hold
+ */
+unsigned int array_capacity(struct array *arr)
+{
+    return arr->capacity;
 }
