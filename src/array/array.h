@@ -42,5 +42,8 @@ unsigned int array_capacity(struct array *arr);
 /* Determine whether an array is empty */
 int array_is_empty(struct array *arr);
 
+/* Get the item at a given index of an array */
+int array_at(struct array *arr, unsigned int index);
+
 /* Add a new item to the end of the array */
 void array_push(struct array *arr, int value);

@@ -134,6 +134,21 @@ int array_is_empty(struct array *arr)
 }
 
 /**
+ * @brief Get the item at a given index in an array
+ *
+ * @param arr The array to check
+ * @param index The index of the array to fetch
+ * @return int The item at the given index
+ */
+int array_at(struct array *arr, unsigned int index)
+{
+    if (index < 0 || index >= arr->size) {
+        exit(EXIT_FAILURE);
+    }
+    return *(arr->data + index);
+}
+
+/**
  * @brief Add an item to the end of an array
  *
  * @param arr The array to add an item to
