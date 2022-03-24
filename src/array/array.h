@@ -47,3 +47,6 @@ int array_at(struct array *arr, unsigned int index);
 
 /* Add a new item to the end of the array */
 void array_push(struct array *arr, int value);
+
+/* Add an item to an array at the given index */
+void array_insert(struct array *arr, int value, unsigned int index);

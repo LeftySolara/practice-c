@@ -162,3 +162,31 @@ void array_push(struct array *arr, int value)
 
     *(arr->data + arr->size++) = value;
 }
+
+/**
+ * @brief Add an item to an array at the given index
+ *
+ * This function adds an element to an array at a specific index.
+ * The existing element and all elements following are shifted
+ * to the right.
+ *
+ * @param arr The array to insert into
+ * @param value The item to place in the array
+ * @param index The place in the array to put the new item
+ */
+void array_insert(struct array *arr, int value, unsigned int index)
+{
+    if (index < 0 || index > arr->size) {
+        return;
+    }
+    if (arr->capacity == arr->size) {
+        array_resize(arr);
+    }
+
+    /* Shift items right */
+    for (int i = arr->size; i > index; --i) {
+        *(arr->data + i) = *(arr->data + i - 1);
+    }
+    *(arr->data + index) = value;
+    ++arr->size;
+}

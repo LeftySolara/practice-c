@@ -74,6 +74,28 @@ void test_array_push(void)
     TEST_ASSERT_EQUAL(8, array_capacity(arr));
 }
 
+void test_array_insert(void)
+{
+    struct array *arr = array_new(8);
+
+    array_push(arr, 4);
+    array_push(arr, 9);
+    array_push(arr, 6);
+    array_push(arr, 10);
+
+    array_insert(arr, 11, 0);
+    array_insert(arr, 55, 2);
+
+    TEST_ASSERT_EQUAL(11, array_at(arr, 0));
+    TEST_ASSERT_EQUAL(4, array_at(arr, 1));
+    TEST_ASSERT_EQUAL(55, array_at(arr, 2));
+    TEST_ASSERT_EQUAL(9, array_at(arr, 3));
+    TEST_ASSERT_EQUAL(6, array_at(arr, 4));
+    TEST_ASSERT_EQUAL(10, array_at(arr, 5));
+
+    array_free(arr);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -83,5 +105,6 @@ int main(void)
     RUN_TEST(test_array_is_empty);
     RUN_TEST(test_array_at);
     RUN_TEST(test_array_push);
+    RUN_TEST(test_array_insert);
     return UNITY_END();
 }
