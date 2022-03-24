@@ -123,6 +123,17 @@ unsigned int array_capacity(struct array *arr)
 }
 
 /**
+ * @brief Determine whether an array is empty
+ *
+ * @param arr The array to test
+ * @return int 1 if the array is empty, 0 otherwise
+ */
+int array_is_empty(struct array *arr)
+{
+    return arr->size == 0;
+}
+
+/**
  * @brief Add an item to the end of an array
  *
  * @param arr The array to add an item to

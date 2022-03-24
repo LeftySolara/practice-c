@@ -37,6 +37,15 @@ void test_array_resize(void)
     array_free(arr);
 }
 
+void test_array_is_empty(void)
+{
+    struct array *arr = array_new(8);
+    TEST_ASSERT_EQUAL(1, array_is_empty(arr));
+
+    array_push(arr, 4);
+    TEST_ASSERT_EQUAL(0, array_is_empty(arr));
+}
+
 void test_array_push(void)
 {
     struct array *arr = array_new(8);
@@ -54,6 +63,7 @@ int main(void)
     RUN_TEST(test_array_size);
     RUN_TEST(test_array_capacity);
     RUN_TEST(test_array_resize);
+    RUN_TEST(test_array_is_empty);
     RUN_TEST(test_array_push);
     return UNITY_END();
 }

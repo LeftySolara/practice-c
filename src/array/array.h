@@ -39,5 +39,8 @@ unsigned int array_size(struct array *arr);
 /* Get the number of items an array can hold */
 unsigned int array_capacity(struct array *arr);
 
+/* Determine whether an array is empty */
+int array_is_empty(struct array *arr);
+
 /* Add a new item to the end of the array */
 void array_push(struct array *arr, int value);
