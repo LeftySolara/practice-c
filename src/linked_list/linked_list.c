@@ -170,6 +170,31 @@ int list_value_n_from_end(struct list *list, int n)
 }
 
 /**
+ * @brief Add an item to the front of a list
+ *
+ * @param list The list to add to
+ * @param value The value to add to the list
+ */
+void list_push_front(struct list *list, int value)
+{
+    if (!list) {
+        return;
+    }
+
+    struct node *new_node = node_new(value);
+
+    if (list_empty(list)) {
+        list->head = new_node;
+        list->tail = new_node;
+    }
+    else {
+        new_node->next = list->head;
+        list->head = new_node;
+    }
+    ++list->size;
+}
+
+/**
  * @brief Add an item to the end of a list
  *
  * @param list The list to add to

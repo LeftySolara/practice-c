@@ -53,5 +53,8 @@ int list_back(struct list *list);
 /* Get the value of the nth item from the end of a list */
 int list_value_n_from_end(struct list *list, int n);
 
+/* Add an item to the front of a list */
+void list_push_front(struct list *list, int value);
+
 /* Add an item to the end of a list */
 void list_push_back(struct list *list, int value);
