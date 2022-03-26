@@ -44,5 +44,14 @@ int list_empty(struct list *list);
 /* Get the value of an item at a specific place in a list */
 int list_value_at(struct list *list, unsigned int index);
 
+/* Get the first item in a list */
+int list_front(struct list *list);
+
+/* Get the last item in a list */
+int list_back(struct list *list);
+
+/* Get the value of the nth item from the end of a list */
+int list_value_n_from_end(struct list *list, int n);
+
 /* Add an item to the end of a list */
 void list_push_back(struct list *list, int value);

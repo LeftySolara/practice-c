@@ -44,6 +44,37 @@ void test_list_value_at(void)
     TEST_ASSERT_EQUAL(15, list_value_at(test_list, 2));
 }
 
+void test_list_front(void)
+{
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 5);
+    list_push_back(test_list, 12);
+
+    TEST_ASSERT_EQUAL(3, list_front(test_list));
+}
+
+void test_list_back(void)
+{
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 5);
+    list_push_back(test_list, 12);
+
+    TEST_ASSERT_EQUAL(12, list_back(test_list));
+}
+
+void test_list_value_n_from_end(void)
+{
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 5);
+    list_push_back(test_list, 12);
+    list_push_back(test_list, 6);
+    list_push_back(test_list, 19);
+
+    TEST_ASSERT_EQUAL(19, list_value_n_from_end(test_list, 0));
+    TEST_ASSERT_EQUAL(3, list_value_n_from_end(test_list, 4));
+    TEST_ASSERT_EQUAL(12, list_value_n_from_end(test_list, 2));
+}
+
 void test_list_push_back(void)
 {
     list_push_back(null_list, 5);
@@ -60,6 +91,9 @@ int main(void)
     RUN_TEST(test_list_size);
     RUN_TEST(test_list_empty);
     RUN_TEST(test_list_value_at);
+    RUN_TEST(test_list_front);
+    RUN_TEST(test_list_back);
+    RUN_TEST(test_list_value_n_from_end);
     RUN_TEST(test_list_push_back);
     return UNITY_END();
 }

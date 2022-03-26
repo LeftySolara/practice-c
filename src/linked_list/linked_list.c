@@ -125,6 +125,51 @@ int list_value_at(struct list *list, unsigned int index)
 }
 
 /**
+ * @brief Get the first value in a list
+ *
+ * @param list The list to check
+ * @return int The value of the first item in the list
+ */
+int list_front(struct list *list)
+{
+    if ((list_empty(list))) {
+        return INT_MAX;
+    }
+    return list->head->data;
+}
+
+/**
+ * @brief Get the last value in a list
+ *
+ * @param list The list to check
+ * @return int The value of the last item in the list
+ */
+int list_back(struct list *list)
+{
+    if (list_empty(list)) {
+        return INT_MAX;
+    }
+    return list->tail->data;
+}
+
+/**
+ * @brief Get the value of the nth item from the end of a list
+ *
+ * @param list The list to check
+ * @param n The number of items from the end of the list to check
+ * @return int The value of the found item
+ */
+int list_value_n_from_end(struct list *list, int n)
+{
+    if (list_empty(list) || n >= list->size) {
+        return INT_MAX;
+    }
+
+    int index = list->size - n - 1;
+    return list_value_at(list, index);
+}
+
+/**
  * @brief Add an item to the end of a list
  *
  * @param list The list to add to
