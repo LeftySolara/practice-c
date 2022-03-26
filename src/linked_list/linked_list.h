@@ -38,5 +38,11 @@ void list_free(struct list *list);
 /* Get the size of a list */
 size_t list_size(struct list *list);
 
+/* Determine whether a list is empty */
+int list_empty(struct list *list);
+
+/* Get the value of an item at a specific place in a list */
+int list_value_at(struct list *list, unsigned int index);
+
 /* Add an item to the end of a list */
 void list_push_back(struct list *list, int value);

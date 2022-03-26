@@ -9,6 +9,7 @@
  *
  */
 
+#include <limits.h>
 #include <stddef.h>
 #include <stdlib.h>
 
@@ -90,6 +91,37 @@ size_t list_size(struct list *list)
         return 0;
     }
     return list->size;
+}
+
+/**
+ * @brief Determine whether a list is empty
+ *
+ * @param list The list to check
+ * @return int Returns 1 if the list is empty, or 0 otherwise
+ */
+int list_empty(struct list *list)
+{
+    return (!list || list->size == 0);
+}
+
+/**
+ * @brief Get the value of an item at a specific place in a list
+ *
+ * @param list The list to check
+ * @param index The place in the list to check
+ * @return int The value of the item at the given index, or UINT_MAX if index is out of bounds
+ */
+int list_value_at(struct list *list, unsigned int index)
+{
+    if (!list || index >= list->size || list->size == 0) {
+        return INT_MAX;
+    }
+
+    struct node *current = list->head;
+    for (int i = 0; i < index; ++i) {
+        current = current->next;
+    }
+    return current->data;
 }
 
 /**
