@@ -23,6 +23,12 @@ struct list {
     size_t size;
 };
 
+/* Create a new list node */
+struct node *node_new(int value);
+
+/* Free memory used by a node */
+void node_free(struct node *node);
+
 /* Create a new list */
 struct list *list_new();
 
@@ -31,3 +37,6 @@ void list_free(struct list *list);
 
 /* Get the size of a list */
 size_t list_size(struct list *list);
+
+/* Add an item to the end of a list */
+void list_push_back(struct list *list, int value);
