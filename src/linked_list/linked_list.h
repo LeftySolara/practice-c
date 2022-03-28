@@ -73,3 +73,6 @@ void list_erase(struct list *list, unsigned int index);
 
 /* Remove the first item in a list with a given value */
 void list_remove_value(struct list *list, int value);
+
+/* Reverse a list in-place */
+void list_reverse(struct list *list);
