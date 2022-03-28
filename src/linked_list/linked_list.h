@@ -58,3 +58,15 @@ void list_push_front(struct list *list, int value);
 
 /* Add an item to the end of a list */
 void list_push_back(struct list *list, int value);
+
+/* Remove the first item in a list and return its value */
+int list_pop_front(struct list *list);
+
+/* Remove the last item in a list and return its value */
+int list_pop_back(struct list *list);
+
+/* Remove a node at the given index */
+void list_erase(struct list *list, unsigned int index);
+
+/* Remove the first item in a list with a given value */
+void list_remove_value(struct list *list, int value);

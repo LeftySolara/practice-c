@@ -9,11 +9,11 @@
  *
  */
 
+#include "linked_list.h"
+
 #include <limits.h>
 #include <stddef.h>
 #include <stdlib.h>
-
-#include "linked_list.h"
 
 /**
  * @brief Create a new list node
@@ -222,4 +222,128 @@ void list_push_back(struct list *list, int value)
         list->tail = new_node;
     }
     ++list->size;
+}
+
+/**
+ * @brief Remove the first item in a list and return its value
+ *
+ * @param list The list to remove an item from
+ * @return int The value of the first item in the list
+ */
+int list_pop_front(struct list *list)
+{
+    if (list_empty(list)) {
+        return INT_MAX;
+    }
+
+    struct node *current = list->head;
+    list->head = list->head->next;
+
+    int value = current->data;
+    node_free(current);
+    --list->size;
+
+    return value;
+}
+
+/**
+ * @brief Remove the last item in a list and return its value
+ *
+ * @param list The list to remove an item from
+ * @return int The value of the last item in the list
+ */
+int list_pop_back(struct list *list)
+{
+    if (list_empty(list)) {
+        return INT_MAX;
+    }
+
+    int value = list->tail->data;
+
+    if (list->size == 1) {
+        node_free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+    }
+    else {
+        struct node *current = list->head;
+        while (current->next != list->tail) {
+            current = current->next;
+        }
+
+        node_free(list->tail);
+        list->tail = current;
+        list->tail->next = NULL;
+    }
+    --list->size;
+
+    return value;
+}
+
+/**
+ * @brief Remove a node at the given index
+ *
+ * @param list The list to remove an item from
+ * @param index The place in the list to remove
+ */
+void list_erase(struct list *list, unsigned int index)
+{
+    if (list_empty(list) || index >= list->size) {
+        return;
+    }
+
+    if (list->size == 1) {
+        node_free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+    }
+    else {
+        if (index == 0) {
+            list_pop_front(list);
+        }
+        else if (index == list->size - 1) {
+            list_pop_back(list);
+        }
+        else {
+            struct node *current = list->head;
+            for (int i = 0; i < index - 1; ++i) {
+                current = current->next;
+            }
+
+            struct node *to_delete = current->next;
+            current->next = to_delete->next;
+            node_free(to_delete);
+            --list->size;
+        }
+    }
+}
+
+/**
+ * @brief Remove the first item in a list with a given value
+ *
+ * @param list The list to remove an item from
+ * @param value The value of the item to remove
+ */
+void list_remove_value(struct list *list, int value)
+{
+    if (list_empty(list)) {
+        return;
+    }
+
+    if (list->head->data == value) {
+        list_pop_front(list);
+    }
+    else {
+        struct node *current = list->head;
+        while (current) {
+            if (current->next->data == value) {
+                struct node *to_delete = current->next;
+                current->next = to_delete->next;
+                node_free(to_delete);
+                break;
+            }
+            current = current->next;
+        }
+        --list->size;
+    }
 }

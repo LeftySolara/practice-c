@@ -96,6 +96,62 @@ void test_list_push_back(void)
     TEST_ASSERT_EQUAL(2, list_size(test_list));
 }
 
+void test_list_pop_front(void)
+{
+    TEST_ASSERT_EQUAL(INT_MAX, list_pop_front(null_list));
+
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 7);
+    list_push_back(test_list, 4);
+
+    TEST_ASSERT_EQUAL(3, list_pop_front(test_list));
+    TEST_ASSERT_EQUAL(7, list_pop_front(test_list));
+    TEST_ASSERT_EQUAL(4, list_pop_front(test_list));
+    TEST_ASSERT_EQUAL(0, list_size(test_list));
+}
+
+void test_list_pop_back(void)
+{
+    TEST_ASSERT_EQUAL(INT_MAX, list_pop_back(null_list));
+
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 7);
+    list_push_back(test_list, 4);
+
+    TEST_ASSERT_EQUAL(4, list_pop_back(test_list));
+    TEST_ASSERT_EQUAL(7, list_pop_back(test_list));
+    TEST_ASSERT_EQUAL(3, list_pop_back(test_list));
+    TEST_ASSERT_EQUAL(0, list_size(test_list));
+}
+
+void test_list_erase(void)
+{
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 7);
+    list_push_back(test_list, 4);
+    list_push_back(test_list, 8);
+
+    list_erase(test_list, 2);
+    TEST_ASSERT_EQUAL(3, list_size(test_list));
+    TEST_ASSERT_EQUAL(3, list_value_at(test_list, 0));
+    TEST_ASSERT_EQUAL(7, list_value_at(test_list, 1));
+    TEST_ASSERT_EQUAL(8, list_value_at(test_list, 2));
+}
+
+void test_list_remove_value(void)
+{
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 7);
+    list_push_back(test_list, 4);
+    list_push_back(test_list, 8);
+
+    list_remove_value(test_list, 4);
+    TEST_ASSERT_EQUAL(3, list_size(test_list));
+    TEST_ASSERT_EQUAL(3, list_value_at(test_list, 0));
+    TEST_ASSERT_EQUAL(7, list_value_at(test_list, 1));
+    TEST_ASSERT_EQUAL(8, list_value_at(test_list, 2));
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -107,5 +163,9 @@ int main(void)
     RUN_TEST(test_list_value_n_from_end);
     RUN_TEST(test_list_push_front);
     RUN_TEST(test_list_push_back);
+    RUN_TEST(test_list_pop_front);
+    RUN_TEST(test_list_pop_back);
+    RUN_TEST(test_list_erase);
+    RUN_TEST(test_list_remove_value);
     return UNITY_END();
 }
