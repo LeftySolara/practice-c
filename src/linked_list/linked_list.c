@@ -225,6 +225,35 @@ void list_push_back(struct list *list, int value)
 }
 
 /**
+ * @brief Add an item to a specific place in a list
+ *
+ * @param list The list to add to
+ * @param pos The place in the list to add the item
+ * @param value The value of the item to add
+ */
+void list_insert(struct list *list, unsigned int pos, int value)
+{
+    if (list_empty(list) || pos >= list->size) {
+        return;
+    }
+
+    if (pos == 0) {
+        list_push_front(list, value);
+    }
+    else {
+        struct node *current = list->head;
+        struct node *new_node = node_new(value);
+
+        for (int i = 0; i < pos - 1; ++i) {
+            current = current->next;
+        }
+        new_node->next = current->next;
+        current->next = new_node;
+        ++list->size;
+    }
+}
+
+/**
  * @brief Remove the first item in a list and return its value
  *
  * @param list The list to remove an item from

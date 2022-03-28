@@ -96,6 +96,21 @@ void test_list_push_back(void)
     TEST_ASSERT_EQUAL(2, list_size(test_list));
 }
 
+void test_list_insert(void)
+{
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 5);
+    list_push_back(test_list, 7);
+    list_push_back(test_list, 9);
+
+    list_insert(test_list, 2, 6);
+    TEST_ASSERT_EQUAL(3, list_value_at(test_list, 0));
+    TEST_ASSERT_EQUAL(5, list_value_at(test_list, 1));
+    TEST_ASSERT_EQUAL(6, list_value_at(test_list, 2));
+    TEST_ASSERT_EQUAL(7, list_value_at(test_list, 3));
+    TEST_ASSERT_EQUAL(9, list_value_at(test_list, 4));
+}
+
 void test_list_pop_front(void)
 {
     TEST_ASSERT_EQUAL(INT_MAX, list_pop_front(null_list));
@@ -163,6 +178,7 @@ int main(void)
     RUN_TEST(test_list_value_n_from_end);
     RUN_TEST(test_list_push_front);
     RUN_TEST(test_list_push_back);
+    RUN_TEST(test_list_insert);
     RUN_TEST(test_list_pop_front);
     RUN_TEST(test_list_pop_back);
     RUN_TEST(test_list_erase);

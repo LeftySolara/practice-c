@@ -59,6 +59,9 @@ void list_push_front(struct list *list, int value);
 /* Add an item to the end of a list */
 void list_push_back(struct list *list, int value);
 
+/* Add an item to a specific place in a list */
+void list_insert(struct list *list, unsigned int pos, int value);
+
 /* Remove the first item in a list and return its value */
 int list_pop_front(struct list *list);
 
