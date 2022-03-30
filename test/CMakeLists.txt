@@ -1,8 +1,11 @@
 add_executable(test_array test_array.c)
 add_executable(test_linked_list test_linked_list.c)
+add_executable(test_state_machine test_state_machine.c)
 
 target_link_libraries(test_array array unity)
 target_link_libraries(test_linked_list linked_list unity)
+target_link_libraries(test_state_machine state_machine unity)
 
 add_test(array test_array)
 add_test(linked_list test_linked_list)
+add_test(state_machine, test_state_machine)
