@@ -14,20 +14,31 @@
 
 #include "turnstile.h"
 
+struct branch const transitions[2][2] = {
+    // coin		             // push        Inputs/States
+    {{UNLOCKED, &unlock}, {LOCKED, &nop}},  // locked
+    {{UNLOCKED,    &nop}, {LOCKED, &lock}}  // unlocked
+};
+
+void nop(const char *input)
+{
+}
+
+void unlock(const char *input)
+{
+    printf("Unlocking...");
+}
+
+void lock(const char *input)
+{
+    printf("Locking...");
+}
+
 void step(enum state *const state, const char *input)
 {
-    switch (*state) {
-        case LOCKED:
-            if (strcmp(input, "coin") == 0) {
-                printf("Unlocking...");
-                *state = UNLOCKED;
-            }
-            break;
-        case UNLOCKED:
-            if (strcmp(input, "push") == 0) {
-                printf("Locking...");
-                *state = LOCKED;
-            }
-            break;
-    }
+    int const row = (*state == LOCKED) ? 0 : 1;
+    int const column = strcmp(input, "coin") == 0 ? 0 : 1;
+    struct branch const *const branch = &transitions[row][column];
+    *state = branch->next_state;
+    branch->action(input);
 }

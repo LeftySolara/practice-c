@@ -11,4 +11,15 @@
 
 enum state { LOCKED, UNLOCKED };
 
+void nop(const char *input);
+
+void unlock(const char *input);
+
+void lock(const char *input);
+
+struct branch {
+    enum state const next_state;
+    void (*action)(const char *);
+};
+
 void step(enum state *const state, const char *input);
