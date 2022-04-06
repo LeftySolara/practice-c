@@ -167,6 +167,21 @@ void test_list_remove_value(void)
     TEST_ASSERT_EQUAL(8, list_value_at(test_list, 2));
 }
 
+void test_list_reverse(void)
+{
+    list_push_back(test_list, 3);
+    list_push_back(test_list, 7);
+    list_push_back(test_list, 4);
+    list_push_back(test_list, 8);
+
+    list_reverse(test_list);
+
+    TEST_ASSERT_EQUAL(8, list_value_at(test_list, 0));
+    TEST_ASSERT_EQUAL(4, list_value_at(test_list, 1));
+    TEST_ASSERT_EQUAL(7, list_value_at(test_list, 2));
+    TEST_ASSERT_EQUAL(3, list_value_at(test_list, 3));
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -183,5 +198,6 @@ int main(void)
     RUN_TEST(test_list_pop_back);
     RUN_TEST(test_list_erase);
     RUN_TEST(test_list_remove_value);
+    RUN_TEST(test_list_reverse);
     return UNITY_END();
 }

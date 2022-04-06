@@ -9,11 +9,11 @@
  *
  */
 
-#include "linked_list.h"
-
 #include <limits.h>
 #include <stddef.h>
 #include <stdlib.h>
+
+#include "linked_list.h"
 
 /**
  * @brief Create a new list node
@@ -375,4 +375,28 @@ void list_remove_value(struct list *list, int value)
         }
         --list->size;
     }
+}
+
+/**
+ * @brief Reverse a list in-place
+ *
+ * @param list The list to reverse
+ */
+void list_reverse(struct list *list)
+{
+    if (list_empty(list) || list->size == 1) {
+        return;
+    }
+
+    struct node *prev = NULL;
+    struct node *current = list->head;
+    struct node *next = NULL;
+
+    while (current) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    list->head = prev;
 }
