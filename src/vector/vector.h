@@ -45,4 +45,22 @@ int vector_at(struct vector *vector, unsigned int index);
 /** Add an item to the end of a vector */
 void vector_push(struct vector *vector, int item);
 
+/** Insert an item at a specific index */
+void vector_insert(struct vector *vector, int item, int unsigned index);
+
+/** Add an item at the beginning of a vector */
+void vector_prepend(struct vector *vector, int item);
+
+/** Remove the last item in a vector and return its value */
+int vector_pop(struct vector *vector);
+
+/** Remove the item at a given index */
+void vector_delete(struct vector *vector, unsigned int index);
+
+/** Remove a specific item from a vector */
+void vector_remove(struct vector *vector, int item);
+
+/** Find the index of an item in a vector */
+unsigned int vector_find(struct vector *vector, int item);
+
 #endif /* VECTOR_H */

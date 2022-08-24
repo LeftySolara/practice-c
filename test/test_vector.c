@@ -84,6 +84,100 @@ void test_vector_push(void)
     vector_free(v);
 }
 
+void test_vector_insert(void)
+{
+    struct vector *v = vector_init(4);
+
+    vector_push(v, 5);
+    vector_push(v, 9);
+    vector_push(v, 4);
+    vector_push(v, 8);
+
+    vector_insert(v, 10, 2);
+    TEST_ASSERT_EQUAL(10, vector_at(v, 2));
+    TEST_ASSERT_EQUAL(5, v->size);
+
+    vector_free(v);
+}
+
+void test_vector_prepend(void)
+{
+    struct vector *v = vector_init(4);
+
+    vector_push(v, 5);
+    vector_push(v, 9);
+    vector_push(v, 4);
+    vector_prepend(v, 8);
+
+    TEST_ASSERT_EQUAL(8, vector_at(v, 0));
+    TEST_ASSERT_EQUAL(5, vector_at(v, 1));
+
+    vector_free(v);
+}
+
+void test_vector_pop(void)
+{
+    struct vector *v = vector_init(4);
+
+    vector_push(v, 12);
+    vector_push(v, 3);
+
+    TEST_ASSERT_EQUAL(3, vector_pop(v));
+    TEST_ASSERT_EQUAL(12, vector_pop(v));
+
+    vector_free(v);
+}
+
+void test_vector_delete(void)
+{
+    struct vector *v = vector_init(4);
+
+    vector_push(v, 13);
+    vector_push(v, 4);
+    vector_push(v, 17);
+    vector_push(v, 8);
+
+    vector_delete(v, 2);
+
+    TEST_ASSERT_EQUAL(13, vector_at(v, 0));
+    TEST_ASSERT_EQUAL(4, vector_at(v, 1));
+    TEST_ASSERT_EQUAL(8, vector_at(v, 2));
+    TEST_ASSERT_EQUAL(3, v->size);
+
+    vector_free(v);
+}
+
+void test_vector_remove(void)
+{
+    struct vector *v = vector_init(4);
+
+    vector_push(v, 13);
+    vector_push(v, 4);
+    vector_push(v, 17);
+    vector_push(v, 8);
+
+    vector_remove(v, 17);
+    TEST_ASSERT_EQUAL(8, vector_at(v, 2));
+
+    vector_remove(v, 100);
+    TEST_ASSERT_EQUAL(3, v->size);
+
+    vector_free(v);
+}
+
+void test_vector_find(void)
+{
+    struct vector *v = vector_init(4);
+
+    vector_push(v, 4);
+    vector_push(v, 17);
+    vector_push(v, 8);
+
+    TEST_ASSERT_EQUAL(1, vector_find(v, 17));
+
+    vector_free(v);
+}
+
 int main(void)
 {
     UNITY_BEGIN();
@@ -92,5 +186,11 @@ int main(void)
     RUN_TEST(test_vector_downsize);
     RUN_TEST(test_vector_at);
     RUN_TEST(test_vector_push);
+    RUN_TEST(test_vector_insert);
+    RUN_TEST(test_vector_prepend);
+    RUN_TEST(test_vector_pop);
+    RUN_TEST(test_vector_delete);
+    RUN_TEST(test_vector_remove);
+    RUN_TEST(test_vector_find);
     return UNITY_END();
 }
