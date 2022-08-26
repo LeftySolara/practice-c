@@ -9,10 +9,10 @@
  *
  */
 
+#include "./linked_list.h"
+
 #include <limits.h>
 #include <stdlib.h>
-
-#include "./linked_list.h"
 
 /**
  * @brief Create a new list node
@@ -131,6 +131,24 @@ int linked_list_value_at(struct linked_list *list, unsigned int index)
 }
 
 /**
+ * @brief Get the value of the node at the nth position from the end of a list
+ *
+ * @param list The list to query
+ * @param n The position to check
+
+ * @return int The value at the node position, or INT_MAX if no such node exists
+ */
+int linked_list_value_n_from_end(struct linked_list *list, unsigned int n)
+{
+    if (linked_list_empty(list) || n >= list->size) {
+        return INT_MAX;
+    }
+
+    int index = list->size - n - 1;
+    return linked_list_value_at(list, index);
+}
+
+/**
  * @brief Add an item to the front of a linked list
  *
  * @param list The list to add to
@@ -236,4 +254,158 @@ int linked_list_pop_back(struct linked_list *list)
     --list->size;
 
     return value;
+}
+
+/**
+ * @brief Get the value of the first item in a list
+ *
+ * @param list The list to query
+ *
+ * @return int The value of the first item in the list, or INT_MAX if no such item exists
+ */
+int linked_list_front(struct linked_list *list)
+{
+    if (!list || list->size == 0) {
+        return INT_MAX;
+    }
+
+    return list->head->data;
+}
+
+/**
+ * @brief Get the value of the last item in a list
+ *
+ * @param list The list to query
+ *
+ * @return int The value of the last item in the list, or INT_MAX if no such item exists
+ */
+int linked_list_back(struct linked_list *list)
+{
+    if (!list || list->size == 0) {
+        return INT_MAX;
+    }
+
+    return list->tail->data;
+}
+
+/**
+ * @brief Insert an item at a specific index in a list
+ *
+ * @param list The list to query
+ * @param index The position in the list to insert into
+ * @param data The value to insert into the list
+ */
+void linked_list_insert(struct linked_list *list, unsigned int index, int data)
+{
+    if (linked_list_empty(list) || index >= list->size) {
+        return;
+    }
+
+    if (index == 0) {
+        linked_list_push_front(list, data);
+    }
+    else {
+        struct node *current = list->head;
+        struct node *new_node = node_init(data);
+
+        for (int i = 0; i < index - 1; ++i) {
+            current = current->next;
+        }
+
+        new_node->next = current->next;
+        current->next = new_node;
+        ++list->size;
+    }
+}
+
+/**
+ * @brief Remove an item at a specific index in a list
+ *
+ * @param list The list to erase from
+ * @param index The position in the list to erase
+ */
+void linked_list_erase(struct linked_list *list, unsigned int index)
+{
+    if (linked_list_empty(list) || index >= list->size) {
+        return;
+    }
+
+    if (list->size == 1) {
+        node_free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+    }
+    else {
+        if (index == 0) {
+            linked_list_pop_front(list);
+        }
+        else if (index == list->size - 1) {
+            linked_list_pop_back(list);
+        }
+        else {
+            struct node *current = list->head;
+            for (int i = 0; i < index - 1; ++i) {
+                current = current->next;
+            }
+
+            struct node *to_erase = current->next;
+            current->next = to_erase->next;
+            node_free(to_erase);
+            --list->size;
+        }
+    }
+}
+
+/**
+ * @brief Remove the first occurrance of a given value from a list
+ *
+ * @param list The list to remove from
+ * @param value The value to remove
+ */
+void linked_list_remove_value(struct linked_list *list, int value)
+{
+    if (linked_list_empty(list)) {
+        return;
+    }
+
+    if (list->head->data == value) {
+        linked_list_pop_front(list);
+    }
+    else {
+        struct node *current = list->head;
+        while (current) {
+            if (current->next->data == value) {
+                struct node *to_remove = current->next;
+                current->next = to_remove->next;
+                node_free(to_remove);
+                break;
+            }
+            current = current->next;
+        }
+        --list->size;
+    }
+}
+
+/**
+ * @brief Reverse a list
+ *
+ * @param list The list to reverse
+ */
+void linked_list_reverse(struct linked_list *list)
+{
+    if (linked_list_empty(list) || list->size == 1) {
+        return;
+    }
+
+    struct node *prev = NULL;
+    struct node *current = list->head;
+    struct node *next = NULL;
+
+    while (current) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    list->head = prev;
 }
