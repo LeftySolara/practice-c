@@ -34,6 +34,21 @@ void test_linked_list_push_front(void)
     linked_list_free(list);
 }
 
+void test_linked_list_pop_front(void)
+{
+    struct linked_list *list = linked_list_init();
+
+    linked_list_push_back(list, 14);
+    linked_list_push_back(list, 3);
+    linked_list_push_back(list, 7);
+
+    TEST_ASSERT_EQUAL(14, linked_list_pop_front(list));
+    TEST_ASSERT_EQUAL(3, linked_list_pop_front(list));
+    TEST_ASSERT_EQUAL(1, linked_list_size(list));
+
+    linked_list_free(list);
+}
+
 void test_linked_list_push_back(void)
 {
     struct linked_list *list = linked_list_init();
@@ -47,11 +62,26 @@ void test_linked_list_push_back(void)
     linked_list_free(list);
 }
 
+void test_linked_list_pop_back(void)
+{
+    struct linked_list *list = linked_list_init();
+
+    linked_list_push_back(list, 14);
+    linked_list_push_back(list, 3);
+    linked_list_push_back(list, 7);
+
+    TEST_ASSERT_EQUAL(7, linked_list_pop_back(list));
+    TEST_ASSERT_EQUAL(3, linked_list_pop_back(list));
+    TEST_ASSERT_EQUAL(1, linked_list_size(list));
+}
+
 int main(void)
 {
     UNITY_BEGIN();
     RUN_TEST(test_linked_list_init);
     RUN_TEST(test_linked_list_push_front);
+    RUN_TEST(test_linked_list_pop_front);
     RUN_TEST(test_linked_list_push_back);
+    RUN_TEST(test_linked_list_pop_back);
     return UNITY_END();
 }

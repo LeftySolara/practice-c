@@ -9,10 +9,10 @@
  *
  */
 
-#include "./linked_list.h"
-
 #include <limits.h>
 #include <stdlib.h>
+
+#include "./linked_list.h"
 
 /**
  * @brief Create a new list node
@@ -156,6 +156,29 @@ void linked_list_push_front(struct linked_list *list, int data)
 }
 
 /**
+ * @brief Remove the first item in a list and return its value
+ *
+ * @param list The list to pop from
+ *
+ * @return int The value of the first item in the list
+ */
+int linked_list_pop_front(struct linked_list *list)
+{
+    if (!list || list->size == 0) {
+        return INT_MAX;
+    }
+
+    struct node *current = list->head;
+    list->head = list->head->next;
+
+    int value = current->data;
+    node_free(current);
+    --list->size;
+
+    return value;
+}
+
+/**
  * @brief Add an item to the end of a list
  *
  * @param list The list to append to
@@ -179,4 +202,38 @@ void linked_list_push_back(struct linked_list *list, int data)
         list->tail = new_node;
     }
     ++list->size;
+}
+
+/**
+ * @brief Remove the last item in a list and return its value
+ *
+ * @param list The list to pop from
+ *
+ * @return int The value of the last item in the list
+ */
+int linked_list_pop_back(struct linked_list *list)
+{
+    if (!list || list->size == 0) {
+        return INT_MAX;
+    }
+
+    int value = list->tail->data;
+
+    if (list->size == 1) {
+        node_free(list->head);
+        list->head = NULL;
+        list->tail = NULL;
+    }
+    else {
+        struct node *current = list->head;
+        while (current->next != list->tail) {
+            current = current->next;
+        }
+
+        node_free(list->tail);
+        list->tail = current;
+    }
+    --list->size;
+
+    return value;
 }

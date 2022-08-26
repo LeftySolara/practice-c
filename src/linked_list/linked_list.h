@@ -47,7 +47,13 @@ int linked_list_value_at(struct linked_list *list, unsigned int index);
 /** Add an item to the front of a list */
 void linked_list_push_front(struct linked_list *list, int data);
 
+/** Remove the first item in a list and return its value */
+int linked_list_pop_front(struct linked_list *list);
+
 /** Add an item to the end of a list */
 void linked_list_push_back(struct linked_list *list, int data);
+
+/** Remove the last item in a list and return its value */
+int linked_list_pop_back(struct linked_list *list);
 
 #endif /* LINKED_LIST_H */
