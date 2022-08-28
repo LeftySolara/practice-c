@@ -1,15 +1,18 @@
+add_executable(test_binary_search test_binary_search.c)
 add_executable(test_hash_table test_hash_table.c)
 add_executable(test_hello_world test_hello_world.c)
 add_executable(test_linked_list test_linked_list.c)
 add_executable(test_queue_ll test_queue_ll.c)
 add_executable(test_vector test_vector.c)
 
+target_link_libraries(test_binary_search binary_search unity)
 target_link_libraries(test_hash_table hash_table unity)
 target_link_libraries(test_hello_world hello_world unity)
 target_link_libraries(test_linked_list linked_list unity)
 target_link_libraries(test_queue_ll queue_ll unity)
 target_link_libraries(test_vector vector unity)
 
+add_test(binary_search test_binary_search)
 add_test(hash_table test_hash_table)
 add_test(hello_world test_hello_world)
 add_test(linked_list test_linked_list)
