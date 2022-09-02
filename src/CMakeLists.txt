@@ -1,3 +1,4 @@
+add_subdirectory(binary_tree)
 add_subdirectory(binary_search)
 add_subdirectory(hash_table)
 add_subdirectory(hello_world)
