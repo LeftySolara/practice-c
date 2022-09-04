@@ -24,7 +24,13 @@ void binary_tree_free(struct node *root);
 
 struct node *binary_tree_insert(struct node *root, const int data);
 
-int binary_tree_get_node_count(struct node *root);
+unsigned int binary_tree_get_node_count(struct node *root);
+unsigned int binary_tree_get_height(struct node *root);
+int binary_tree_get_min(struct node *root);
+int binary_tree_get_max(struct node *root);
+
+int binary_tree_is_in_tree(struct node *root, int data);
+int binary_tree_is_bst(struct node *root, int min, int max);
 
 void binary_tree_print(struct node *root);
 
