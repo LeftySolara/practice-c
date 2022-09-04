@@ -20,7 +20,12 @@ struct node {
 
 struct node *node_init(int data);
 void node_free(struct node *node);
+void binary_tree_free(struct node *root);
 
 struct node *binary_tree_insert(struct node *root, const int data);
+
+int binary_tree_get_node_count(struct node *root);
+
+void binary_tree_print(struct node *root);
 
 #endif /* BINARY_TREE_H */

@@ -9,9 +9,10 @@
  *
  */
 
-#include <stdlib.h>
-
 #include "binary_tree.h"
+
+#include <stdio.h>
+#include <stdlib.h>
 
 /**
  * @brief Create a new binary tree node
@@ -42,6 +43,23 @@ void node_free(struct node *node)
 }
 
 /**
+ * @brief Free all memory used by a binary tree
+ *
+ * @param root The root node of the tree
+ */
+void binary_tree_free(struct node *root)
+{
+    if (!root) {
+        return;
+    }
+
+    binary_tree_free(root->left);
+    binary_tree_free(root->right);
+
+    free(root);
+}
+
+/**
  * @brief Insert a new node into a binary tree
  *
  * @param root The root node of the tree
@@ -63,4 +81,40 @@ struct node *binary_tree_insert(struct node *root, const int data)
     }
 
     return root;
+}
+
+/**
+ * @brief Count the number of nodes in a tree
+ *
+ * @param root The tree to count
+
+ * @return int The number of nodes in the tree
+ */
+int binary_tree_get_node_count(struct node *root)
+{
+    unsigned int cnt = 0;
+
+    if (!root) {
+        return 0;
+    }
+
+    cnt = 1 + binary_tree_get_node_count(root->left) + binary_tree_get_node_count(root->right);
+
+    return cnt;
+}
+
+/**
+ * @brief Print the values in a tree, from min to max
+ *
+ * @param root The root node of the tree to print
+ */
+void binary_tree_print(struct node *root)
+{
+    if (!root) {
+        return;
+    }
+
+    binary_tree_print(root->left);
+    printf("%d ", root->data);
+    binary_tree_print(root->right);
 }
