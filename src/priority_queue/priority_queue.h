@@ -43,6 +43,7 @@ int priority_queue_is_empty(struct priority_queue *queue);
 
 /** Get the largest value in a priority queue. */
 int priority_queue_get_max(struct priority_queue *queue);
+/** Get the largest value in a priority queue and remove it. */
 int priority_queue_extract_max(struct priority_queue *queue);
 
 void priority_queue_remove(struct priority_queue *queue, unsigned int index);

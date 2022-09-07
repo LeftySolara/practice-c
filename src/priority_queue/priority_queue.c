@@ -9,11 +9,11 @@
  *
  */
 
+#include "priority_queue.h"
+
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#include "priority_queue.h"
 
 /**
  * @brief Create a new priority queue.
@@ -113,6 +113,41 @@ void priority_queue_sift_up(struct priority_queue *queue, unsigned int index)
  */
 void priority_queue_sift_down(struct priority_queue *queue, unsigned int index)
 {
+    unsigned int left_child_index = (2 * index) + 1;
+    unsigned int right_child_index = (2 * index) + 2;
+
+    /* Check if children exist. */
+    int has_left_child = (left_child_index < queue->size);
+    int has_right_child = (right_child_index < queue->size);
+
+    /* Check if children are larger than parent (max-heap property). */
+    int swap_index;
+    if (has_left_child && has_right_child) {
+        if (queue->data[left_child_index] > queue->data[right_child_index]) {
+            swap_index = left_child_index;
+        }
+        else {
+            swap_index = right_child_index;
+        }
+    }
+    else if (has_left_child) {
+        swap_index = left_child_index;
+    }
+    else if (has_right_child) {
+        swap_index = right_child_index;
+    }
+    else {
+        /** Leaf node, which satisfies max-heap property. */
+        return;
+    }
+
+    if (queue->data[index] < queue->data[swap_index]) {
+        int temp = queue->data[index];
+        queue->data[index] = queue->data[swap_index];
+        queue->data[swap_index] = temp;
+    }
+
+    priority_queue_sift_down(queue, swap_index);
 }
 
 /**
@@ -152,4 +187,35 @@ int priority_queue_get_max(struct priority_queue *queue)
         return queue->data[0];
     }
     return INT_MAX;
+}
+
+/**
+ * @brief Get the largest value in a priority queue and remove it.
+ *
+ * @param queue The queue to check.
+ *
+ * @return int The value of the largest element in the queue.
+ */
+int priority_queue_extract_max(struct priority_queue *queue)
+{
+    int max_value = queue->data[0];
+
+    queue->data[0] = queue->data[queue->size - 1];
+    priority_queue_sift_down(queue, 0);
+    --queue->size;
+
+    return max_value;
+}
+
+/**
+ * @brief Remove an item from a priority queue.
+ *
+ * @param queue The queue to remove from.
+ * @param index The index of the item to remove.
+ */
+void priority_queue_remove(struct priority_queue *queue, unsigned int index)
+{
+    queue->data[index] = queue->data[queue->size - 1];
+    --queue->size;
+    priority_queue_sift_down(queue, index);
 }
